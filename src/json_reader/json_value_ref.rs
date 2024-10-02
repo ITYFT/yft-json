@@ -1,6 +1,4 @@
-use rust_extensions::{
-    array_of_bytes_iterator::SliceIterator, date_time::DateTimeAsMicroseconds, StrOrString,
-};
+use yft_extensions::{array_of_bytes_iterator::SliceIterator, date_time::DateTimeAsMicroseconds};
 
 use super::{
     array_iterator::JsonArrayIterator, json_value::UnwrappedValue, JsonFirstLineReader,
@@ -78,7 +76,7 @@ impl<'s> JsonValueRef<'s> {
         self.src.unwrap_as_array(&self.json_slice)
     }
 
-    pub fn as_str(&'s self) -> Option<StrOrString<'s>> {
+    pub fn as_str(&'s self) -> Option<String> {
         self.src.as_str(&self.json_slice)
     }
 

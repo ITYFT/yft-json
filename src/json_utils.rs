@@ -1,5 +1,3 @@
-use rust_extensions::StrOrString;
-
 const NULL_LC: [u8; 4] = [b'n', b'u', b'l', b'l'];
 const NULL_UC: [u8; 4] = [b'N', b'U', b'L', b'L'];
 
@@ -151,7 +149,7 @@ pub fn is_string(src: &[u8]) -> bool {
     src[0] == '"' as u8 || src[0] == '\'' as u8
 }
 
-pub fn try_get_string_value<'s>(src: &'s [u8]) -> Option<StrOrString<'s>> {
+pub fn try_get_string_value<'s>(src: &'s [u8]) -> Option<String> {
     if is_string(src) {
         return Some(crate::json_string_value::de_escape_json_string_value(
             std::str::from_utf8(src[1..src.len() - 1].as_ref()).unwrap(),

@@ -1,4 +1,4 @@
-use rust_extensions::array_of_bytes_iterator::*;
+use yft_extensions::array_of_bytes_iterator::*;
 
 use super::super::super::byte_of_array_reader::FoundResult;
 use super::super::super::JsonParseError;

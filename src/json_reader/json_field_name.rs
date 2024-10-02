@@ -1,5 +1,3 @@
-use rust_extensions::StrOrString;
-
 use crate::json_reader::{json_value::AsJsonSlice, JsonParseError};
 
 use super::JsonFieldNameRef;
@@ -29,7 +27,7 @@ impl JsonFieldName {
     pub fn as_str<'s>(
         &self,
         json: &'s impl AsJsonSlice,
-    ) -> Result<StrOrString<'s>, JsonParseError> {
+    ) -> Result<String, JsonParseError> {
         let slice = json.as_slice()[self.start..self.end].as_ref();
 
         if let Some(name) = crate::json_utils::try_get_string_value(slice) {

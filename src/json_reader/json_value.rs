@@ -1,6 +1,4 @@
-use rust_extensions::{
-    array_of_bytes_iterator::SliceIterator, date_time::DateTimeAsMicroseconds, StrOrString,
-};
+use yft_extensions::{array_of_bytes_iterator::SliceIterator, date_time::DateTimeAsMicroseconds};
 
 use super::{array_iterator::JsonArrayIterator, JsonFirstLineReader, JsonParseError};
 
@@ -299,7 +297,7 @@ impl JsonValue {
         ))
     }
 
-    pub fn as_str<'s>(&self, as_json_slice: &'s impl AsJsonSlice) -> Option<StrOrString<'s>> {
+    pub fn as_str<'s>(&self, as_json_slice: &'s impl AsJsonSlice) -> Option<String> {
         let slice = as_json_slice.as_slice()[self.start..self.end].as_ref();
 
         if crate::json_utils::is_null(slice) {
@@ -359,7 +357,7 @@ impl JsonValue {
         as_json_slice: &impl AsJsonSlice,
     ) -> Option<DateTimeAsMicroseconds> {
         let as_str = self.as_str(as_json_slice)?;
-        DateTimeAsMicroseconds::from_str(as_str.as_str())
+        DateTimeAsMicroseconds::from_str(&as_str)
     }
 }
 

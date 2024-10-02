@@ -1,5 +1,3 @@
-use rust_extensions::StrOrString;
-
 const SINGLE_QUOTE: char = '\'';
 const DOUBLE_QUOTE: char = '"';
 const BACK_SLASH: char = '\\';
@@ -43,9 +41,9 @@ pub fn write_escaped_json_string_value(src: &str, out: &mut Vec<u8>) {
     }
 }
 
-pub fn escape_json_string_value<'s>(src: &'s str) -> StrOrString<'s> {
+pub fn escape_json_string_value<'s>(src: &'s str) -> String {
     if !has_to_escape(src.as_bytes()) {
-        return src.into();
+        return src.to_string();
     }
 
     let mut result = String::new();
@@ -70,7 +68,7 @@ pub fn escape_json_string_value<'s>(src: &'s str) -> StrOrString<'s> {
     result.into()
 }
 
-pub fn de_escape_json_string_value<'s>(src: &'s str) -> StrOrString<'s> {
+pub fn de_escape_json_string_value<'s>(src: &'s str) -> String {
     if !has_to_escape(src.as_bytes()) {
         return src.into();
     }
@@ -82,17 +80,15 @@ pub fn de_escape_json_string_value<'s>(src: &'s str) -> StrOrString<'s> {
         if escape_mode {
             result.push(c);
             escape_mode = false;
+        } else if c == '\\' {
+            escape_mode = true;
         } else {
-            if c == '\\' {
-                escape_mode = true;
-            } else {
-                result.push(c);
-                escape_mode = false;
-            }
+            result.push(c);
+            escape_mode = false;
         }
     }
 
-    result.into()
+    result
 }
 
 #[cfg(test)]

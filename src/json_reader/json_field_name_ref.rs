@@ -1,5 +1,3 @@
-use rust_extensions::StrOrString;
-
 use crate::json_reader::JsonParseError;
 
 use super::JsonFieldName;
@@ -20,7 +18,7 @@ impl<'s> JsonFieldNameRef<'s> {
         self.src.as_raw_str(&self.field_name_slice)
     }
 
-    pub fn as_str(&'s self) -> Result<StrOrString<'s>, JsonParseError> {
+    pub fn as_str(&'s self) -> Result<String, JsonParseError> {
         self.src.as_str(&self.field_name_slice)
     }
 
@@ -31,7 +29,7 @@ impl<'s> JsonFieldNameRef<'s> {
 
 #[cfg(test)]
 mod tests {
-    use rust_extensions::array_of_bytes_iterator::*;
+    use yft_extensions::array_of_bytes_iterator::*;
 
     use crate::json_reader::*;
 
@@ -82,20 +80,20 @@ mod tests {
 
         let item = parser.get_next().unwrap().unwrap().as_ref(&parser);
 
-        assert_eq!("processId", item.name.as_str().unwrap().as_str());
+        assert_eq!("processId", item.name.as_str().unwrap());
         assert_eq!(
             "8269e2ac-fa3b-419a-8e65-1a606ba07942",
-            item.value.as_str().unwrap().as_str()
+            item.value.as_str().unwrap()
         );
 
         let item = parser.get_next().unwrap().unwrap().as_ref(&parser);
 
-        assert_eq!("sellAmount", item.name.as_str().unwrap().as_str());
-        assert_eq!("0.4", item.value.as_str().unwrap().as_str());
+        assert_eq!("sellAmount", item.name.as_str().unwrap());
+        assert_eq!("0.4", item.value.as_str().unwrap());
 
         let item = parser.get_next().unwrap().unwrap().as_ref(&parser);
 
-        assert_eq!("buyAmount", item.name.as_str().unwrap().as_str());
+        assert_eq!("buyAmount", item.name.as_str().unwrap());
 
         assert!(item.value.is_null());
     }
@@ -121,7 +119,7 @@ mod tests {
 
         while let Some(sub_json) = first_line_reader.get_next() {
             let sub_json = sub_json.unwrap().as_ref(&first_line_reader);
-            println!("{}", sub_json.name.as_str().unwrap().as_str(),);
+            println!("{}", sub_json.name.as_str().unwrap(),);
         }
     }
 

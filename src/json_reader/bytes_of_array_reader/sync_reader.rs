@@ -1,4 +1,4 @@
-use rust_extensions::array_of_bytes_iterator::*;
+use yft_extensions::array_of_bytes_iterator::*;
 
 use crate::json_reader::JsonParseError;
 
@@ -446,7 +446,7 @@ pub fn check_json_symbol(
     match value {
         Some(value) => {
             let value = std::str::from_utf8(value).unwrap();
-            if !rust_extensions::str_utils::compare_strings_case_insensitive(value, symbol) {
+            if !yft_extensions::str_utils::compare_strings_case_insensitive(value, symbol) {
                 return Err(JsonParseError::new(format!(
                     "Error Parsing {symbol} value. Invalid token found ['{}'] at position {}",
                     value, pos
@@ -467,7 +467,7 @@ pub fn check_json_symbol(
 
 #[cfg(test)]
 mod tests {
-    use rust_extensions::array_of_bytes_iterator::*;
+    use yft_extensions::array_of_bytes_iterator::*;
 
     #[test]
     pub fn detect_end_of_the_string() {

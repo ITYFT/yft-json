@@ -2,7 +2,7 @@ use super::json_value::AsJsonSlice;
 use super::JsonParseError;
 use super::{bytes_of_array_reader::*, JsonValue};
 
-use rust_extensions::array_of_bytes_iterator::*;
+use yft_extensions::array_of_bytes_iterator::*;
 
 pub struct JsonArrayIterator<TArrayOfBytesIterator: ArrayOfBytesIterator> {
     data: TArrayOfBytesIterator,
@@ -200,7 +200,7 @@ mod tests {
 
             assert_eq!(
                 format!("{{\"id\":{}}}", i),
-                sub_json.as_str(&json_array_iterator).unwrap().as_str()
+                sub_json.as_str(&json_array_iterator).unwrap()
             );
 
             assert!(sub_json.is_object(&json_array_iterator));
@@ -225,7 +225,7 @@ mod tests {
 
             assert_eq!(
                 format!("{{\"id\":{}}}", i),
-                sub_json.as_str(&json_array_iterator).unwrap().as_str()
+                sub_json.as_str(&json_array_iterator).unwrap()
             );
 
             assert!(sub_json.is_object(&json_array_iterator));
@@ -249,7 +249,7 @@ mod tests {
 
             assert_eq!(
                 format!("{{\"id\":{}}}", i),
-                sub_json.as_str(&json_array_iterator).unwrap().as_str()
+                sub_json.as_str(&json_array_iterator).unwrap()
             );
         }
     }
@@ -283,7 +283,7 @@ mod tests {
         );
         assert_eq!(
             "chat message",
-            value.as_str(&json_array_iterator).unwrap().as_str()
+            value.as_str(&json_array_iterator).unwrap()
         );
         assert!(value.is_string(&json_array_iterator));
 
@@ -300,7 +300,7 @@ mod tests {
         assert!(value.is_object(&json_array_iterator));
         assert_eq!(
             "{\"name\":\"chat\"}",
-            value.as_str(&json_array_iterator).unwrap().as_str()
+            value.as_str(&json_array_iterator).unwrap()
         );
 
         let value = json_array_iterator.get_next().unwrap().unwrap();
@@ -358,33 +358,33 @@ mod tests {
         let mut object = value.unwrap_as_object(&json_array_iterator).unwrap();
 
         let param = object.get_next().unwrap().unwrap();
-        assert_eq!("Id", param.name.as_str(&object).unwrap().as_str());
+        assert_eq!("Id", param.name.as_str(&object).unwrap());
 
-        assert_eq!("YourFin", param.value.as_str(&object).unwrap().as_str());
+        assert_eq!("YourFin", param.value.as_str(&object).unwrap());
 
         let param = object.get_next().unwrap().unwrap();
-        assert_eq!("BaseDomain", param.name.as_str(&object).unwrap().as_str());
+        assert_eq!("BaseDomain", param.name.as_str(&object).unwrap());
 
         assert_eq!(
             "your_fin.tech",
-            param.value.as_str(&object).unwrap().as_str()
+            param.value.as_str(&object).unwrap()
         );
 
         let param = object.get_next().unwrap().unwrap();
-        assert_eq!("DomainsPool", param.name.as_str(&object).unwrap().as_str());
+        assert_eq!("DomainsPool", param.name.as_str(&object).unwrap());
 
         assert_eq!(true, param.value.is_array(&object));
 
         let param = object.get_next().unwrap().unwrap();
         assert_eq!(
             "CakeRegistrationId",
-            param.name.as_str(&object).unwrap().as_str()
+            param.name.as_str(&object).unwrap()
         );
 
-        assert_eq!("9", param.value.as_str(&object).unwrap().as_str());
+        assert_eq!("9", param.value.as_str(&object).unwrap());
 
         let param = object.get_next().unwrap().unwrap();
-        assert_eq!("TimeStamp", param.name.as_str(&object).unwrap().as_str());
+        assert_eq!("TimeStamp", param.name.as_str(&object).unwrap());
 
         println!(
             "{}",
@@ -403,7 +403,7 @@ mod tests {
             let itm = itm.unwrap();
 
             println!("-----");
-            println!("{}", itm.as_str(&json_array_iterator).unwrap().as_str());
+            println!("{}", itm.as_str(&json_array_iterator).unwrap());
         }
     }
 }
